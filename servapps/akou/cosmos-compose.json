@@ -1,0 +1,59 @@
+{
+  "cosmos-installer": {
+    "post-install": [
+      {
+        "type": "warning",
+        "label": "The web page asks for an admin password. Set one in the {ServiceName} container's terminal, with at least 12 characters: printf '%s' 'your-password' | akou admin set-password. Then log in and create one API key per program on the Keys page."
+      },
+      {
+        "type": "info",
+        "label": "The first job downloads the speech models into the models volume, about 3 GB, so it waits a few minutes for that."
+      }
+    ]
+  },
+  "minVersion": "0.13.0",
+  "services": {
+    "{ServiceName}": {
+      "image": "drumsergio/akou:1.0.0",
+      "container_name": "{ServiceName}",
+      "restart": "unless-stopped",
+      "environment": [
+        "TZ=auto",
+        "AKOU_BEHIND_PROXY=true"
+      ],
+      "labels": {
+        "cosmos-force-network-secured": "true",
+        "cosmos-icon": "https://azukaar.github.io/cosmos-servapps-official/servapps/akou/icon.png",
+        "cosmos-stack": "{ServiceName}",
+        "cosmos-stack-main": "{ServiceName}"
+      },
+      "volumes": [
+        {
+          "source": "{ServiceName}-data",
+          "target": "/data",
+          "type": "volume"
+        },
+        {
+          "source": "{ServiceName}-models",
+          "target": "/models",
+          "type": "volume"
+        }
+      ],
+      "routes": [
+        {
+          "name": "{ServiceName}",
+          "description": "Expose {ServiceName} to the web",
+          "useHost": true,
+          "target": "http://{ServiceName}:8476",
+          "mode": "SERVAPP",
+          "Timeout": 14400000,
+          "ThrottlePerMinute": 12000,
+          "BlockCommonBots": true,
+          "SmartShield": {
+            "Enabled": true
+          }
+        }
+      ]
+    }
+  }
+}

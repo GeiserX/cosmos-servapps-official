@@ -1,0 +1,9 @@
+{
+  "name": "akou",
+  "longDescription": "<p>akou turns audio into text on your own server. A program uploads a file, gets a job id back at once, and reads the result with text, language, word and segment times and speaker labels, by long-poll, by an event feed or by a signed webhook. It also answers the OpenAI transcription endpoint (<code>POST /v1/audio/transcriptions</code>), so clients that speak it work with no code on their side.</p><p>Results come as text, JSON, SRT or VTT. Each program gets its own API key, and a web page shows the job queue, the keys, the models and the settings. The default <code>fast</code> preset runs NVIDIA Parakeet TDT 0.6B v3 on the CPU, with Nemotron speaker labels when a job asks for them; the models download on the first job, about 3 GB.</p><p>akou is also a call recorder for macOS; this app is its server mode, the same core in Docker.</p>",
+  "description": "Self-hosted transcription server with speaker labels, SRT and VTT output, and an OpenAI-compatible endpoint.",
+  "tags": ["ai", "transcription", "speech-to-text", "subtitles", "openai", "self-hosted"],
+  "repository": "https://github.com/GeiserX/akou",
+  "image": "drumsergio/akou:1.0.0",
+  "supported_architectures": ["amd64", "arm64"]
+}
